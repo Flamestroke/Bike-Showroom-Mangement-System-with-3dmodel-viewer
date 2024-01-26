@@ -25,6 +25,18 @@ if (isset($_GET['cancel'])) {
   }
 }
 ?>
+<?php
+$generate = false;
+if (isset($_GET['generate'])) {
+  $bookingid = $_GET['generate'];
+  $uname =  $_SESSION['username'];
+  $sql = "SELECT * FROM `bookings` WHERE `booking_id`='$bookingid'";
+  $result = mysqli_query($conn, $sql);
+  if ($result) {
+    $generate = true;
+  }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +61,7 @@ if (isset($_GET['cancel'])) {
     <title>Your Bookings</title>
     <style>
     body {
-          background: linear-gradient(#212529 0%, #ff6000 99%);"
+          background: linear-gradient(#212529 0%, #ff6000 99%);
 
       /* Full height */
       height: 100%;
@@ -170,15 +182,15 @@ if (isset($_GET['cancel'])) {
   </script>
 
   <script>
-    views = document.getElementsByClassName('generate');
-    Array.from(views).forEach((element) => {
+    generate = document.getElementsByClassName('generate');
+    Array.from(generate).forEach((element) => {
       element.addEventListener("click", (e) => {
-        // console.log("edit ");
-        // sno = e.target.id.substr(1);
+        console.log("receipt");
+        sno = e.target.id.substr(1);
 
         if (confirm("Genereate reciept")) {
           console.log("yes");
-          window.open("/Bike Showroom/invoicepdf.php");
+          window.open(`/Bike Showroom/invoicepdf.php?reciept=${sno}`);
         } else {
           console.log("no");
         }
