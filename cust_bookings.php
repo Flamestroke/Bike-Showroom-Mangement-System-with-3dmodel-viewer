@@ -37,7 +37,7 @@ if($_SESSION['username']!='admin'){
     <style>
      body {
 
-      background: linear-gradient(#212529 0%, #ff6000 99%);"
+      background: linear-gradient(#212529 0%, #ff6000 99%);
 
          /* Full height */
           height: 100%;

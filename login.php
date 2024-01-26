@@ -1,50 +1,47 @@
 <?php
-   $login =false;
-   $showError =false;
+$login = false;
+$showError = false;
 
-   if($_SERVER["REQUEST_METHOD"]=="POST"){
-     include 'partials/_dbconnect.php';
-     $username = $_POST["username"];
-     $password = $_POST["password"];
-     $sql = "Select * from customer where c_username ='$username' AND c_password='$password'"; 
-       $result = mysqli_query($conn,$sql);
-       $num = mysqli_num_rows($result);
-       if($num==1){
-         $login = true;
-         session_start();
-         $_SESSION['loggedin'] = true;
-         $_SESSION['username'] = $username;
-         header("location: welcome_cust.php");
-       }
-      
-      else{
-        $showError = "Invalid credentials"; 
-      }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include 'partials/_dbconnect.php';
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $sql = "Select * from customer where c_username ='$username' AND c_password='$password'";
+    $result = mysqli_query($conn, $sql);
+    $num = mysqli_num_rows($result);
+    if ($num == 1) {
+        $login = true;
+        session_start();
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $username;
+        header("location: welcome_cust.php");
+    } else {
+        $showError = "Invalid credentials";
     }
+}
 
-    if($_SERVER["REQUEST_METHOD"]=="POST"){
-      include 'partials/_dbconnect.php';
-      $username = $_POST["username"];
-      $password = $_POST["password"];
-      $sql = "Select * from admin where a_username ='$username' AND password='$password'"; 
-        $result = mysqli_query($conn,$sql);
-        $num = mysqli_num_rows($result);
-        if($num==1){
-          $login = true;
-          session_start();
-          $_SESSION['loggedin'] = true;
-          $_SESSION['username'] = $username;
-          header("location: welcome_admin.php");
-        }
-       
-       else{
-         $showError = "Invalid credentials"; 
-       }
-     }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include 'partials/_dbconnect.php';
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $sql = "Select * from admin where a_username ='$username' AND password='$password'";
+    $result = mysqli_query($conn, $sql);
+    $num = mysqli_num_rows($result);
+    if ($num == 1) {
+        $login = true;
+        session_start();
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $username;
+        header("location: welcome_admin.php");
+    } else {
+        $showError = "Invalid credentials";
+    }
+}
 ?>
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -59,12 +56,13 @@
     <link rel="stylesheet" href="boot/css/untitled.css">
     <link rel="stylesheet" href="boot/css/vanilla-zoom.min.css">
 </head>
-  <body>
+
+<body>
     <?php require 'partials/_nav.php' ?>
-    
+
     <?php
-    if($login){
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    if ($login) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Success.</strong> You are now logged in.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
@@ -72,26 +70,26 @@
     </div>';
     }
 
-    if($showError){
-      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <strong>Error.</strong> '.$showError.'
+    if ($showError) {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Error.</strong> ' . $showError . '
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
       </button>
       </div>';
-      }
+    }
     ?>
-<main class="page login-page">
-        <section class="clean-block clean-form dark"style="background: rgb(49,49,49);">
+    <main class="page login-page">
+        <section class="clean-block clean-form dark" style="background: rgb(49,49,49);">
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Log In</h2>
                 </div>
-                <form action = "/Bike Showroom/login.php" method = "post" style="border-radius: 15px;box-shadow: -3px -4px 0px 1px #ff6000;border-bottom-right-radius: 0px;">
+                <form action="/Bike Showroom/login.php" method="post" style="border-radius: 15px;box-shadow: -3px -4px 0px 1px #ff6000;border-bottom-right-radius: 0px;">
                     <div class="mb-3"><label class="form-label" for="username">Username</label><input class="form-control" type="username" id="username" name="username"></div>
-                    <div class="mb-3"><label class="form-label" for="password">Password</label><input class="form-control" type="password" id="password" name="password"required></div>
+                    <div class="mb-3"><label class="form-label" for="password">Password</label><input class="form-control" type="password" id="password" name="password" required></div>
                     <div class="mb-3">
-                    </div><button type="submit" class="btn btn-primary"style="background: #ff6000;border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-right-radius: 0px;border-bottom-left-radius: 10px;">Log In</button>
+                    </div><button type="submit" class="btn btn-primary" style="background: #ff6000;border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-right-radius: 0px;border-bottom-left-radius: 10px;">Log In</button>
                 </form>
             </div>
         </section>
@@ -144,4 +142,5 @@
     <script src="boot/js/theme.js"></script>
     <script src="boot/js/Swiper-Slider-Card-For-Blog-Or-Product-swiper.min.js"></script>
 </body>
+
 </html>

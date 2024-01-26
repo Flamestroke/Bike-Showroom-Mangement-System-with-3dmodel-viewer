@@ -2,6 +2,9 @@
 //require_once 'yourbookings.php';
 session_start();
 include 'partials/_dbconnect.php';
+
+
+$refid = $_GET['reciept'];
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
     header("location: login.php");
     exit;
@@ -59,7 +62,7 @@ if ($_SESSION['username'] == 'admin') {
         }
 
         .items td.cost {
-            text-align: "."center;
+            text-align: "." center;
         }
 
         span {
@@ -100,28 +103,41 @@ if ($_SESSION['username'] == 'admin') {
                     <tr>
                         <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;"><strong>Booking ID : </strong>
 
-                        <?php 
+                            <?php
                             $username = $_SESSION['username'];
-                            $sql = "SELECT * FROM `bookings` WHERE `c_username`='$username'";
+                            $bookingid = $_GET['reciept'];
+                            $sql = "SELECT * FROM `bookings` WHERE `booking_id`='$bookingid'";
                             $result = mysqli_query($conn, $sql);
-                            while($fet = mysqli_fetch_assoc($result)){
+                            while ($fet = mysqli_fetch_assoc($result)) {
                                 echo  $fet['booking_id'];
                             }
-                        ?>
+                            // $generate = false;
+                            // if (isset($_GET['generate'])) {
+                            //     $bookingid = $_GET['reciept'];
+                            //     $uname =  $_SESSION['username'];
+                            //     $sql = "SELECT * FROM `bookings` WHERE `booking_id`='$bookingid'";
+                            //     $result = mysqli_query($conn, $sql);
+                            //     if ($result) {
+                            //         $generate = true;
+                            //         echo  $fet['booking_id'];
+                            //     }
+                            // }
+                            ?>
 
                         </td>
                     </tr>
                     <tr>
                         <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;"><strong>Customer Name : </strong>
 
-                        <?php 
+                            <?php
                             $username = $_SESSION['username'];
-                            $sql = "SELECT * FROM `bookings` WHERE `c_username`='$username'";
+                            $bookingid = $_GET['reciept'];
+                            $sql = "SELECT * FROM `bookings` WHERE `booking_id`='$bookingid'";
                             $result = mysqli_query($conn, $sql);
-                            while($fet = mysqli_fetch_assoc($result)){
+                            while ($fet = mysqli_fetch_assoc($result)) {
                                 echo  $fet['c_username'];
                             }
-                        ?>
+                            ?>
 
                         </td>
                     </tr>
@@ -142,28 +158,30 @@ if ($_SESSION['username'] == 'admin') {
             <!-- ITEMS HERE -->
             <tr>
                 <td style="padding: 0px 7px; line-height: 20px;">
-            
-                <?php 
+
+                    <?php
                     $username = $_SESSION['username'];
-                    $sql = "SELECT * FROM `bookings` WHERE `c_username`='$username'";
+                    $bookingid = $_GET['reciept'];
+                    $sql = "SELECT * FROM `bookings` WHERE `booking_id`='$bookingid'";
                     $result = mysqli_query($conn, $sql);
-                    while($fet = mysqli_fetch_assoc($result)){
+                    while ($fet = mysqli_fetch_assoc($result)) {
                         echo  $fet['bike_no'];
                     }
-                ?>
-                
+                    ?>
+
                 </td>
 
                 <td style="padding: 0px 7px; line-height: 20px;">
 
-                <?php 
+                    <?php
                     $username = $_SESSION['username'];
-                    $sql = "SELECT * FROM `bookings` WHERE `c_username`='$username'";
+                    $bookingid = $_GET['reciept'];
+                    $sql = "SELECT * FROM `bookings` WHERE `booking_id`='$bookingid'";
                     $result = mysqli_query($conn, $sql);
-                    while($fet = mysqli_fetch_assoc($result)){
+                    while ($fet = mysqli_fetch_assoc($result)) {
                         echo  $fet['bike_name'];
                     }
-                ?>
+                    ?>
 
                 </td>
                 <td style="padding: 0px 7px; line-height: 20px;"><span>&#8377;</span> 1,00,000 </td>
@@ -220,8 +238,7 @@ if ($_SESSION['username'] == 'admin') {
     </table>
 
     &nbsp;&nbsp;&nbsp;<button id="print" onclick="window.print()">Print</button>
-    
+
 </body>
 
 </html>
-    
